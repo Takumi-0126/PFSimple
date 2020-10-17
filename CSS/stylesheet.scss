@@ -1,0 +1,620 @@
+@import "reset";
+
+$pc: 1024px; // PC
+$tab: 680px; // タブレット
+$sp: 480px; // スマホ
+
+@mixin pc {
+  @media (max-width: ($pc)) {
+    @content;
+  }
+}
+@mixin tab {
+  @media (max-width: ($tab)) {
+    @content;
+  }
+}
+@mixin sp {
+  @media (max-width: ($sp)) {
+    @content;
+  }
+}
+
+/*共通部分ここまで*/
+
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+  z-index: 10;
+
+  &__inner {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  &__inner img {
+    width: 50px;
+  }
+  &__nav {
+    font-weight: bold;
+    line-height: 3;
+
+    @include sp {
+      display: none;
+    }
+  }
+
+  &__nav-list {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__nav-list_item a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    padding-bottom: 5px;
+    margin-left: 20px;
+    position: relative;
+  }
+
+  &__nav-list_item a::before,
+  &__nav-list_item a::after {
+    border-bottom: solid 2px #f00;
+    bottom: 0;
+    content: "";
+    display: block;
+    position: absolute;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    width: 0;
+  }
+
+  &__nav-list_item a::before {
+    left: 50%;
+  }
+
+  &__nav-list_item a::after {
+    right: 50%;
+  }
+
+  &__nav-list_item a:hover::before,
+  &__nav-list_item a:hover::after {
+    width: 50%;
+  }
+}
+
+.mv {
+  background: url(../img/mv.jpg) no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+
+  @include sp {
+    height: 32vh;
+  }
+
+  &__contents {
+    color: #ffffff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+
+    @include sp {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__main-text {
+    font-size: 5rem;
+    font-style: italic;
+
+    @include sp {
+      font-size: 2rem;
+    }
+  }
+
+  &__sub-text {
+    text-align: center;
+    font-size: 2rem;
+
+    @include sp {
+      font-size: 1rem;
+    }
+  }
+
+  &__sub-text::after {
+    content: "";
+    border-right: 2px solid;
+    animation: flashing 3s linear infinite;
+  }
+
+  @keyframes flashing {
+    0% {
+      opacity: 0;
+    }
+  }
+}
+
+.section {
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-bottom: 50px;
+
+    @include sp {
+      grid-template-columns: 1fr;
+      text-align: left;
+      padding-bottom: 0;
+    }
+  }
+
+  &__inner {
+    width: 100%;
+    max-width: 1000px;
+    padding: 50px 0;
+    margin: 0 auto;
+
+    @include sp {
+      padding: 30px 0;
+    }
+  }
+
+  &__title {
+    padding-bottom: 40px;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include sp {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__title::before,
+  &__title::after {
+    content: "";
+    width: 100px;
+    height: 1px;
+    background: #111111;
+  }
+
+  &__title::before {
+    margin-right: 20px;
+  }
+
+  &__title::after {
+    margin-left: 20px;
+  }
+}
+
+.works {
+  &__list {
+    @include sp {
+      max-width: fit-content;
+      margin: 0 auto;
+      padding-bottom: 10px;
+    }
+  }
+
+  &__list-item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__list-item img {
+    object-fit: cover;
+    object-position: top;
+    width: 300px;
+    height: 300px;
+  }
+
+  &__list-item_description {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    color: #fff;
+    text-align: center;
+  }
+
+  &__list-item:hover .works__list-item_description {
+    opacity: 1;
+    transition: all 0.6s ease;
+  }
+}
+
+/*About*/
+
+.about {
+  & h3 {
+    font-size: 2rem;
+    padding-bottom: 10px;
+  }
+
+  & h3,
+  & span {
+    display: block;
+    text-align: center;
+  }
+
+  &__image {
+    margin: 30px auto;
+    width: calc(60vmin - 20px);
+    display: flex;
+    justify-content: center;
+  }
+
+  &__image img {
+    width: 100%;
+    border-radius: 3%;
+  }
+
+  &__text {
+    text-align: center;
+
+    @include sp {
+      margin: 20px;
+      text-align: left;
+    }
+  }
+}
+
+/*Skills*/
+
+.skills {
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-bottom: 50px;
+
+    @include sp {
+      grid-template-columns: 1fr;
+      text-align: left;
+      padding-bottom: 0;
+    }
+  }
+
+  &__content-grid {
+    padding-right: 30px;
+
+    @include sp {
+      padding: 20px;
+    }
+  }
+
+  &__content-grid h3,
+  &__fontawesome {
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  &__text {
+    text-align: left;
+  }
+
+  &__title {
+    background: #f4f4f4;
+    margin-bottom: 40px;
+    font-size: 1.5rem;
+    display: block;
+    text-align: center;
+  }
+
+  &__marketing figure {
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    height: 150px;
+    margin: 0 auto 20px;
+  }
+
+  &__marketing img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &__blog {
+    display: flex;
+  }
+
+  &__blog img {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  &__blog img:hover {
+    border: 2px solid #f00;
+  }
+
+  &__blog-text h3 {
+    font-size: 2rem;
+    text-align: center;
+    padding-bottom: 20px;
+
+    @include sp {
+      font-size: 1.17em;
+    }
+  }
+
+  &__blog-text a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &__blog-text a:hover {
+    border-bottom: 2px solid #f00;
+  }
+
+  &__blog-text p {
+    @include sp {
+      padding: 20px;
+    }
+  }
+
+  &__blog figure,
+  &__blog-text span {
+    @include sp {
+      display: none;
+    }
+  }
+}
+
+/*Vision*/
+
+.vision {
+  & p {
+    line-height: 2;
+
+    @include sp {
+      line-height: 3;
+      padding: 0 20px;
+    }
+  }
+
+  & span {
+    font-weight: bold;
+    border-bottom: 3px solid #f00;
+  }
+}
+
+/*form*/
+
+.form {
+  &__container > p {
+    text-align: center;
+    padding-bottom: 15px;
+
+    @include sp {
+      text-align: left;
+      padding: 15px;
+    }
+  }
+
+  &__container-btn_interview p {
+    text-align: center;
+  }
+
+  &__container-btn {
+    font-weight: bold;
+  }
+
+  &__container-btn p {
+    font-size: 3rem;
+    padding: 10px 50px 0;
+
+    @include sp {
+      padding: 10px 20px 0;
+    }
+  }
+
+  &__container-btn p + p {
+    font-size: 1rem;
+  }
+
+  &__container-btn_interview-icon {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__container-btn_interview-icon a {
+    color: black;
+  }
+
+  &__container-btn_interview-icon button:nth-of-type(2) {
+    line-height: 4.5;
+  }
+
+  &__interview-icon_mail button,
+  &__interview-icon_line button {
+    font-size: 1.5rem;
+
+    @include sp {
+      font-size: 1rem;
+      width: 100px;
+    }
+  }
+
+  &__interview-icon_mail {
+    @include sp {
+      line-height: 1;
+    }
+  }
+
+  &__interview-icon_mail:hover,
+  &__interview-icon_line:hover {
+    opacity: 0.7;
+  }
+
+  &__interview-icon_line {
+    padding-top: 30px;
+  }
+
+  &__interview-icon_line button {
+    line-height: 4;
+    padding-top: 10px;
+  }
+
+  &__interview-icon_line img {
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    padding-top: 23px;
+
+    @include sp {
+      padding-top: 0;
+      max-width: 100px;
+    }
+  }
+}
+
+i.fa-envelope {
+  display: block;
+}
+
+i.icon-size {
+  font-size: 5rem;
+  @include sp {
+    font-size: smaller;
+  }
+}
+
+/*footer*/
+.footer {
+  text-align: center;
+  background: #f4f4f4;
+}
+
+.sp {
+  @include sp {
+    display: none;
+  }
+}
+
+.global__nav {
+  position: fixed;
+  right: -320px; /* これで隠れる */
+  top: 0;
+  width: 200px; /* スマホに収まるくらい */
+  height: 100vh;
+  padding-top: 40px;
+  background-color: #fff;
+  transition: all 0.6s;
+  z-index: 200;
+  overflow-y: auto; /* メニューが多くなったらスクロールできるように */
+
+  &-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &-item {
+    text-align: center;
+    padding: 0 14px;
+  }
+
+  &-item a {
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    color: #111;
+  }
+
+  &-item a:hover {
+    background-color: #eee;
+  }
+}
+
+.hamburger {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px; /* クリックしやすいようにちゃんと幅を指定する */
+  height: 40px; /* クリックしやすいようにちゃんと高さを指定する */
+  cursor: pointer;
+  z-index: 300;
+
+  @media screen and (min-width: 480px) {
+    display: none;
+  }
+
+  &__line {
+    position: absolute;
+    left: 11px;
+    width: 18px;
+    height: 1px;
+    background-color: #111;
+    transition: all 0.6s;
+  }
+
+  &__line--1 {
+    top: 14px;
+  }
+
+  &__line--2 {
+    top: 20px;
+  }
+
+  &__line--3 {
+    top: 26px;
+  }
+}
+
+.black-bg {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background-color: #000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.6s;
+  cursor: pointer;
+}
+/* 表示された時用のCSS */
+.nav-open .global__nav {
+  right: 0;
+}
+.nav-open .black-bg {
+  opacity: 0.8;
+  visibility: visible;
+}
+.nav-open .hamburger__line--1 {
+  transform: rotate(45deg);
+  top: 20px;
+}
+.nav-open .hamburger__line--2 {
+  width: 0;
+  left: 50%;
+}
+.nav-open .hamburger__line--3 {
+  transform: rotate(-45deg);
+  top: 20px;
+}
